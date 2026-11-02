@@ -104,6 +104,9 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .bt{fill:#eceef4;font:700 9px Outfit,system-ui,sans-serif;letter-spacing:.08em}
 .sm{fill:#c4c6d0;font:500 7.5px Outfit,system-ui,sans-serif}
 .lg{fill:#34d399;animation:blink 2.6s ease-in-out infinite}
+.ld{fill:#34d399;animation:ldb 1.9s ease-in-out infinite;animation-delay:calc(var(--d)*-1s)}
+.ld.am{fill:#f5a524;animation-duration:2.7s}
+@keyframes ldb{0%,100%{opacity:1}50%{opacity:.18}}
 .off{fill:#4b5675}
 @keyframes blink{50%{opacity:.4}}
 @keyframes lit{0%{fill:#15151b;stroke:#454552}25%{fill:#19d3ff;stroke:#19d3ff}100%{fill:#15151b;stroke:#454552}}
@@ -114,7 +117,7 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .pb{padding:18px 18px 20px}
 .pb .eqrow{margin-top:14px}
 .rack .eq:last-child{margin-bottom:0}
-@media (prefers-reduced-motion:reduce){.lg,.open .pt{animation:none}.pn,.chev,.eq{transition:none}}
+@media (prefers-reduced-motion:reduce){.lg,.ld,.open .pt{animation:none}.pn,.chev,.eq{transition:none}}
 .lb{display:block;font-style:normal;font-size:13px;color:var(--mute);font-weight:500}
 .eqrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:16px}
 .spec{display:grid;gap:10px}
@@ -191,7 +194,7 @@ function tile(k,l,v){const t=el("div","t"),b=el("div");b.append(el("em","",l),el
 function spec(l,v){const c=el("div","sp");c.append(el("em","",l),el("strong","",v));return c}
 function setOpen(e,o){e.classList.toggle("open",o);e.querySelector(".fb").setAttribute("aria-expanded",o)}
 function face(d){
-  let j=0;const ok=/^operativo/i.test(d.s||""),k=d.k,M=(d.m||"").toUpperCase(),O=d.o||"";
+  let j=0;const ok=!/fuera|inactiv|apag|baja|falla/i.test(d.s||""),k=d.k,M=(d.m||"").toUpperCase(),O=d.o||"";
   const P=(x,y,w,h)=>`<rect class="pt" style="--i:${(j++)%90}" x="${+x.toFixed(1)}" y="${y}" width="${+w.toFixed(1)}" height="${h}" rx="1"/>`;
   const Cc=(x,y,r)=>`<circle class="pt" style="--i:${(j++)%90}" cx="${+x.toFixed(1)}" cy="${y}" r="${r}"/>`;
   const R=(x,y,w,h,c)=>`<rect class="${c||"sl"}" x="${+x.toFixed(1)}" y="${y}" width="${+w.toFixed(1)}" height="${h}" rx="2.5"/>`;
@@ -279,6 +282,11 @@ function face(d){
     b+=T(14+16*sw+28,344,"17(PIU)","tm","middle");
     b+=R(12,350,376,26,"ub")+`<rect class="sl" x="300" y="357" width="52" height="12" rx="1.5"/><rect class="yl" x="304" y="360" width="10" height="6"/>`+`<rect class="eb" x="26" y="356" width="130" height="14" rx="2"/>`;
   }
+  const LD=(x,y)=>`<rect class="pt" style="--i:0" x="${x-1.5}" y="${y-1.5}" width="3" height="3" rx="1"/>`;
+  if(k==="sw")for(let c=0;c<3;c++)b+=LD(60+c*7,35)+LD(60+c*7,45);
+  if(k==="pss"){for(let c=0;c<3;c++)b+=LD(352+c*10,33);for(let c=0;c<6;c++)b+=LD(40+c*8,68)}
+  if(k==="nfv")b=b.replace(/<rect class="yl" x="([\d.]+)" y="([\d.]+)" width="7" height="7"\/>/g,(m,x,y)=>LD(+x+3.5,+y+3.5));
+  let n3=0;b=b.replace(/<rect class="pt" style="--i:\d+" x="([\d.]+)" y="([\d.]+)" width="3" height="3" rx="1"\/>/g,(m,x,y)=>{n3++;return ok?`<circle class="ld${n3%3===0?" am":""}" style="--d:${((n3*37)%100)/50}" cx="${+x+1.5}" cy="${+y+1.5}" r="1.7"/>`:`<circle class="off" cx="${+x+1.5}" cy="${+y+1.5}" r="1.7"/>`});
   const st=`<circle class="${ok?"lg":"off"}" cx="376" cy="14" r="3"/>`;
   const ear=y=>`<circle class="sc" cx="4.5" cy="${y}" r="1.8"/><circle class="sc" cx="395.5" cy="${y}" r="1.8"/>`;
   let sc=ear(9)+ear(H-9);if(H>150)sc+=ear(Math.round(H/2));
@@ -305,6 +313,15 @@ function render(){
   const id=decodeURIComponent(location.hash.slice(1)).toUpperCase(),v=document.getElementById("view");
   v.replaceChildren();
   const h=el("section","hero");
+  if(id==="TODOS"){
+    document.title="Datacenter MUS, todos los racks";
+    h.append(logo(),el("small","","Datacenter MUS"),el("h1","","Todos los racks"));
+    const q=el("div","pills");q.appendChild(el("span","",Object.keys(D).length+" racks"));h.appendChild(q);v.appendChild(h);
+    v.appendChild(el("h2","sec","Toca un rack para ver sus equipos"));
+    const ix=el("div","idx");
+    Object.keys(D).forEach(k=>{const b=el("button");b.type="button";b.onclick=()=>{location.hash=k};const x=el("div");x.append(el("strong","",k),el("small","",plural(D[k].length)+" · "+uniq(D[k].map(z=>z.t)).join(" · ")));b.append(el("span","num",k.slice(-2)),x);ix.appendChild(b)});
+    v.appendChild(ix);window.scrollTo(0,0);return;
+  }
   if(!D[id]){
     document.title="Datacenter MUS";
     h.append(logo(),el("small","","Datacenter MUS"),el("h1","","Escanea el QR del rack"));
