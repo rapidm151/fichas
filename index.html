@@ -35,6 +35,7 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .ic{flex:none;width:42px;height:42px;border-radius:50%;background:var(--blue);color:#04283a;display:grid;place-items:center}
 .ic svg{width:22px;height:22px}
 .tp{font-size:14px;font-weight:600;color:var(--bt);line-height:1.25;overflow-wrap:anywhere}
+@media (max-width:380px){.tp{font-size:12.5px}}
 .id{margin:2px 0 14px;font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-.01em;overflow-wrap:anywhere}
 .sec{font-size:20px;font-weight:800;margin:4px 2px 10px}
 .idx{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
@@ -123,6 +124,13 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .open .pt{animation:lit .9s calc(var(--i)*3ms) both}
 .pn{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .45s ease,visibility 0s .45s}
 .open .pn{grid-template-rows:1fr;visibility:visible;transition-delay:0s}
+.pb>*{opacity:0;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease}
+.open .pb>*{opacity:1;transform:none;transition:opacity .4s ease calc(var(--k,0)*60ms + 120ms),transform .4s cubic-bezier(.2,.7,.2,1) calc(var(--k,0)*60ms + 120ms)}
+.face{transition:transform .18s ease}
+.fb:active .face{transform:scale(.985)}
+.eq.pulse{animation:pulse 1.2s ease-out}
+@keyframes pulse{0%{border-color:var(--cy);box-shadow:0 0 0 4px rgba(0,183,235,.45)}100%{box-shadow:var(--sh)}}
+@media (prefers-reduced-motion:reduce){.pb>*,.open .pb>*{opacity:1;transform:none;transition:none}.face{transition:none}.fb:active .face{transform:none}.eq.pulse{animation:none}}
 .pi{overflow:hidden;min-height:0}
 .pb{padding:18px 18px 20px}
 .pb .eqrow{margin-top:14px}
@@ -133,7 +141,7 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .spec{display:grid;gap:10px}
 .sp{background:var(--chip);border-radius:16px;padding:10px 14px}
 .sp em{display:block;font-style:normal;font-size:13px;color:var(--chipink);font-weight:600}
-.sp strong{display:block;font-size:18px;line-height:1.25;font-weight:700;overflow-wrap:anywhere}
+.sp strong{display:block;font-size:clamp(14px,4.5vw,18px);line-height:1.25;font-weight:700;overflow-wrap:break-word}
 .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .row .m{background:var(--chip);color:var(--chipink);padding:4px 12px;border-radius:999px;font-size:14px;font-weight:600}
 .row .o{font-weight:600;overflow-wrap:anywhere}
@@ -181,7 +189,7 @@ AP16:[W("ARTTMUS-WI1000"),U("ARTTMUS-WI1002")],
 AP17:[W("ARTTMUS-WI0800")],
 AP20:[O("MUS901","7552","Equipo de acceso de clientes en zona Alderetes"),O("MUS801","5454","Equipo de acceso de clientes en zona ex Central Acceso Norte")],
 AP21:[O("ARTTMUS0OLI011","4361","Equipo de acceso de clientes en zona Muñecas"),O("ARTTMUS0OLI010","3077","Acceso")],
-AP23:[{k:"pss",t:"TRANSPORTE ÓPTICO DWDM/OTN",m:"NOKIA",o:"1830-PSS-16II",e:"ARTTMUS-WL0101",s:"OPERATIVO",f:"El Nokia 1830 PSS-16 (Photonic Service Switch) es un equipo de transporte óptico DWDM/OTN, utilizado para mover grandes cantidades de tráfico sobre fibra óptica entre centrales, nodos regionales, data centers y redes móviles. Afectado a la ruta A38.",n:"48 VDC"}],
+AP23:[{k:"pss",t:"TRANSPORTE DWDM/OTN",m:"NOKIA",o:"1830-PSS-16II",e:"ARTTMUS-WL0101",s:"OPERATIVO",f:"El Nokia 1830 PSS-16 (Photonic Service Switch) es un equipo de transporte óptico DWDM/OTN, utilizado para mover grandes cantidades de tráfico sobre fibra óptica entre centrales, nodos regionales, data centers y redes móviles. Afectado a la ruta A38.",n:"48 VDC"}],
 AP27:[O("ARTTMUS0OLI013","1121","Equipo de acceso para nuevo despliegue de clientes en zona ex Central 9 de Julio"),O("ARTTMUS0OLI012",undefined,"Equipo de acceso de clientes en zona ex Central 9 de Julio")]
 };
 const ICO={
@@ -386,12 +394,12 @@ function card(d,i,n){
   tx.append(el("em","lb","Tecnología"),el("div","tp",d.t));top.append(ico(d.k,"ic"),tx);pb.appendChild(top);
   if(d.s){const ok=/^operativo/i.test(d.s),bd=el("span","bg"+(ok?"":" off")),r=el("div","eqrow");bd.append(el("i"),document.createTextNode(d.s));r.append(el("em","lb","Estado"),bd);pb.appendChild(r)}
   const sp=[];if(d.m)sp.push(spec("Marca del equipo",d.m));if(d.o)sp.push(spec("Modelo del equipo",d.o));
-  if(sp.length){const g=el("div","spec");g.style.gridTemplateColumns=sp.length>1?"1fr 1fr":"1fr";sp.forEach(x=>g.appendChild(x));pb.appendChild(g)}
+  if(sp.length){const g=el("div","spec");g.style.gridTemplateColumns=sp.length>1&&![d.m,d.o].some(v=>v&&String(v).length>=8)?"minmax(0,1fr) minmax(0,1fr)":"minmax(0,1fr)";sp.forEach(x=>g.appendChild(x));pb.appendChild(g)}
   if(d.a)pb.appendChild(el("span","tag",d.a));
   const tiles=[];if(d.c)tiles.push(tile("users","Clientes",d.c));if(d.n)tiles.push(tile("bolt","Energía",d.n));
-  if(tiles.length){const g=el("div","g");g.style.gridTemplateColumns=tiles.length>1?"1fr 1fr":"1fr";tiles.forEach(t=>g.appendChild(t));pb.appendChild(g)}
+  if(tiles.length){const g=el("div","g");g.style.gridTemplateColumns=tiles.length>1&&![d.c,d.n].some(v=>v&&String(v).length>11)?"minmax(0,1fr) minmax(0,1fr)":"minmax(0,1fr)";tiles.forEach(t=>g.appendChild(t));pb.appendChild(g)}
   if(d.f){const f=el("div","fn");f.append(el("em","","Función"),el("p","",d.f));pb.appendChild(f)}
-  pi.appendChild(pb);pn.appendChild(pi);e.append(b,pn);return e;
+  [...pb.children].forEach((c,i)=>c.style.setProperty("--k",i));pi.appendChild(pb);pn.appendChild(pi);e.append(b,pn);return e;
 }
 function render(){
   const q=new URLSearchParams(location.search).get("r"),id=(q||decodeURIComponent(location.hash.slice(1))).trim().toUpperCase(),v=document.getElementById("view");
@@ -408,7 +416,7 @@ function render(){
   h.append(logo(),el("small","","Datacenter MUS, rack"),el("h1","",id));
   const p=el("div","pills");p.appendChild(el("span","",plural(D[id].length)));
   uniq(D[id].map(x=>x.t)).forEach(t=>p.appendChild(el("span","",t)));h.appendChild(p);v.appendChild(h);
-  const L=D[id],rk=el("div","rack"),go=i=>{const t=document.getElementById("eq"+i);if(t){setOpen(t,true);t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"})}};
+  const L=D[id],rk=el("div","rack"),go=i=>{const t=document.getElementById("eq"+i);if(t){t.classList.remove("pulse");void t.offsetWidth;t.classList.add("pulse");setTimeout(()=>t.classList.remove("pulse"),1300);setOpen(t,true);t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"})}};
   v.appendChild(el("h2","sec",L.length>1?"Equipos de este rack":"Equipo de este rack"));
   if(L.length>1){const ix=el("div","idx");L.forEach((d,i)=>{const b=el("button");b.type="button";b.onclick=()=>go(i);const x=el("div");x.append(el("strong","",d.e),el("small","",d.t));b.append(el("span","num",String(i+1)),x);ix.appendChild(b)});v.appendChild(ix)}
   L.forEach((d,i)=>rk.appendChild(card(d,i,L.length)));v.appendChild(rk);
