@@ -76,6 +76,8 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .ces{fill:#aeb3bd;stroke:#6e7380;stroke-width:1.2}
 .mesh{stroke:#c3c7d0;stroke-width:1.5;stroke-dasharray:1.5 1.5;fill:none}
 .mbk{fill:#4a4e57}
+.swp{fill:#9b979b;stroke:#6e6a70;stroke-width:.8}
+.oc{fill:#d9531e}
 .bl{fill:#1c1c21;stroke:#34343b;stroke-width:.6}
 .bd{fill:#26262c}
 .dv{fill:#a5a7b0}
@@ -159,27 +161,28 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 <body>
 <main><div id="view"></div></main>
 <script>
-const T="Plataforma de transporte óptico DWDM/OTN de alta capacidad. Permite transmitir, agregar y gestionar grandes volúmenes de tráfico de datos entre nodos de acceso, agregación y core de la red, garantizando alta disponibilidad y escalabilidad.";
+const T="Plataforma de transporte óptico DWDM/OTN de alta capacidad. Permite transmitir, agregar y gestionar grandes volúmenes de tráfico de datos entre nodos de acceso, agregación y core de la red, garantizando alta disponibilidad y escalabilidad. Conectando Datacenter BUA y Muñecas. Servicios: Core 5G - B2B - CDN. Gateway BUA1NA - MUS1NA - ARTTCGWBUA-RNE001 y ARTTMUSCGW-RNE001.";
 const NF="Plataforma de servidores blade de alta densidad utilizada para alojar aplicaciones, funciones virtualizadas y servicios críticos de la red, proporcionando capacidad de procesamiento, almacenamiento y alta disponibilidad.";
 const SWF="Switch de agregación y distribución de alta capacidad que concentra y transporta tráfico IP de servicios fijos, móviles y corporativos, interconectando equipos de acceso con la red de transporte y core.";
-const O=(e,c)=>({k:"olt",t:"OLT GPON / ACCESO FTTH",m:"HUAWEI",o:"MA5800-X17",e,s:"OPERATIVO",c,f:"ACCESO",n:"48 VDC"});
+const O=(e,c,f)=>({k:"olt",t:"OLT GPON / ACCESO FTTH",m:"HUAWEI",o:"MA5800-X17",e,s:"OPERATIVO",c,f:f||"Acceso",n:"48 VDC"});
 const W=e=>({k:"osn",t:"DWDM OC/OC",m:"HUAWEI",o:"OSN9800 M 24",e,s:"OPERATIVO",f:T,n:"48 VDC"});
 const N=e=>({k:"nfv",t:"INFRAESTRUCTURA NFV",m:"HUAWEI",o:"E9000H-8",e,s:"OPERATIVO",f:NF,n:"48 VDC"});
-const UF="Subbastidor universal (Universal Platform Subrack) de la plataforma óptica OptiX OSN 9800. Aloja las placas de control (SCC), de línea y tributarias de la red de transporte DWDM/OTN: multiplexa en una misma fibra hasta 96 longitudes de onda (50 GHz) con hasta 200 Gbit/s por canal, y permite conmutación ROADM, agrupación y protección de servicios (Ethernet, SDH, OTN, SAN, video) entre nodos. Cuenta con control, ventilación y alimentación redundantes.";
-const U=(e,s,n)=>({k:"ups",t:"DWDM / OTN · SUBBASTIDOR",m:"HUAWEI",o:"OSN9800 UPS",e,s,n,f:UF});
+const UF=T+" Subbastidor universal (UPS) que aloja las placas de control, de línea y tributarias, con control, ventilación y alimentación redundantes.";
+const U=(e,s,n)=>({k:"ups",t:"DWDM OC/OC",m:"HUAWEI",o:"OSN9800 UPS",e,s,n,f:UF});
+const S2=e=>({...S(e),t:"INFRAESTRUCTURA NFV"});
 const S=e=>({k:"sw",t:"AGREGACIÓN IP",m:"HUAWEI",o:"CE6881-48S6CQ",e,s:"OPERATIVO",f:SWF,n:"48 VDC"});
 const D={
-AJ12:[{k:"core",t:"CORE IP",m:"HUAWEI",o:"CE16804",e:"ARTMUS-EED002",s:"OPERATIVO",a:"EQUIPO CORE 5G",f:"Switch de núcleo (Core) para centros de datos y redes de alta capacidad. Realiza la conmutación y el enrutamiento del tráfico IP, concentrando y distribuyendo servicios entre las capas de acceso, agregación y core de la red.",n:"48 VDC"}],
-AJ13:[N("ARTTMUS-EFR003"),N("ARTTMUS-EFR002")],
+AJ12:[{k:"core",t:"CORE IP",m:"HUAWEI",o:"CE16804",e:"ARTMUS-EED002",s:"OPERATIVO",a:"EQUIPO CORE 5G",f:"Switch de núcleo (Core) para centros de datos y redes de alta capacidad. Realiza la conmutación y el enrutamiento del tráfico IP, concentrando y distribuyendo servicios entre las capas de acceso, agregación y core de la red.",n:"48 VDC"},{k:"ne8",t:"CORE IP",m:"HUAWEI",o:"NE8000-M14",e:"ARTTMUS-DGM002",s:"OPERATIVO",f:"Switch de núcleo (Core) para centros de datos y redes de alta capacidad. Realiza la conmutación y el enrutamiento del tráfico IP, concentrando y distribuyendo servicios entre las capas de acceso, agregación y core de la red.",n:"48 VDC"}],
+AJ13:[S2("ARTTMUS-ETM006"),S2("ARTTMUS-ETM005"),S2("ARTTMUS-ETS004"),S2("ARTTMUS-ETS003"),N("ARTTMUS-EFR003"),N("ARTTMUS-EFR002")],
 AJ15:[S("ARTTMUS-SED002"),S("ARTTMUS-SED001"),S("ARTTMUS-STD002"),S("ARTTMUS-STD001")],
 AP14:[W("ARTTMUS-WI1001"),U("ARTTMUS-WI1000","OPERATIVO","48 VDC")],
 AP15:[W("ARTTMUS-WI1200")],
 AP16:[W("ARTTMUS-WI1000"),U("ARTTMUS-WI1002")],
 AP17:[W("ARTTMUS-WI0800")],
-AP20:[O("MUS901","7552"),O("MUS801","5454")],
-AP21:[O("ARTTMUS0OLI011","4361"),O("ARTTMUS0OLI010","3077")],
-AP23:[{k:"pss",t:"TRANSPORTE ÓPTICO DWDM/OTN",m:"NOKIA",o:"1830-PSS-16II",e:"ARTTMUS-WL0101",s:"OPERATIVO",f:"El Nokia 1830 PSS-16 (Photonic Service Switch) es un equipo de transporte óptico DWDM/OTN, utilizado para mover grandes cantidades de tráfico sobre fibra óptica entre centrales, nodos regionales, data centers y redes móviles.",n:"48 VDC"}],
-AP27:[O("ARTTMUS0OLI013","1121"),O("ARTTMUS0OLI012")]
+AP20:[O("MUS901","7552","Equipo de acceso de clientes en zona Alderetes"),O("MUS801","5454","Equipo de acceso de clientes en zona ex Central Acceso Norte")],
+AP21:[O("ARTTMUS0OLI011","4361","Equipo de acceso de clientes en zona Muñecas"),O("ARTTMUS0OLI010","3077","Acceso")],
+AP23:[{k:"pss",t:"TRANSPORTE ÓPTICO DWDM/OTN",m:"NOKIA",o:"1830-PSS-16II",e:"ARTTMUS-WL0101",s:"OPERATIVO",f:"El Nokia 1830 PSS-16 (Photonic Service Switch) es un equipo de transporte óptico DWDM/OTN, utilizado para mover grandes cantidades de tráfico sobre fibra óptica entre centrales, nodos regionales, data centers y redes móviles. Afectado a la ruta A38.",n:"48 VDC"}],
+AP27:[O("ARTTMUS0OLI013","1121","Equipo de acceso para nuevo despliegue de clientes en zona ex Central 9 de Julio"),O("ARTTMUS0OLI012",undefined,"Equipo de acceso de clientes en zona ex Central 9 de Julio")]
 };
 const ICO={
 olt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h6M8 12l5-6h8M8 12h13M8 12l5 6h8"/><circle cx="21" cy="6" r=".6"/><circle cx="21" cy="12" r=".6"/><circle cx="21" cy="18" r=".6"/></svg>',
@@ -194,7 +197,7 @@ const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATQAAABICAYAAAB4FgmRAA
 ICO.osn=ICO.dw;ICO.pss=ICO.dw;ICO.ups=ICO.dw;
 const SVG0='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
 ICO.srv=SVG0+'<rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M12 6.5h5M12 17.5h5"/></svg>';
-ICO.hp=ICO.r730=ICO.r66=ICO.smc=ICO.vik=ICO.eq=ICO.srv;ICO.rtr=ICO.core;
+ICO.hp=ICO.r730=ICO.r66=ICO.smc=ICO.vik=ICO.eq=ICO.srv;ICO.rtr=ICO.core;ICO.ne8=ICO.core;
 
 const FB="Servidor HP ProLiant destinado a la ejecución de servicios y aplicaciones de la plataforma Meta (Facebook).";
 const FBC=FB+" Capacidad estimada de almacenamiento: hasta 460 TB, equivalente a más de 115 millones de fotografías o aproximadamente 92.000 horas de video 4K, permitiendo el resguardo y disponibilidad de grandes volúmenes de información crítica.";
@@ -211,7 +214,7 @@ AU34:["FNA001.01.FTUC1","FNA002.01.FTUC1","FNA003.01.FTUC1","FNA004.01.FTUC1","F
 AU32:[SV("eq","STORAGE ARRAY","DELL","EQUSS-D2860","GOOGLE",GST)("telecomargentina-tuc601"),HPG("telecomargentina-tuc602",GST),HPG("telecomargentina-tuc603",GST),HPG("telecomargentina-tuc604","Provisión de almacenamiento compartido para servicios corporativos y respaldo de información."),HPG("telecomargentina-tuc605",GST)],
 AU31:[1,2,3,4,5,6,7,8].map(i=>R7("TELECOMARGENTINA.TUC40"+i)),
 AU30:[SC("C008.TUC.001.TELECOM.ARGENTNA.ISP.NFLXVIDEO.NET"),SC("C002.TUC.001.TELECOM.ARGENTNA.ISP.NFLXVIDEO.NET"),SV("vik","STORAGE ARRAY","VIKING","BSP-27","NETFLIX","Servidor de almacenamiento y procesamiento de datos con capacidad aproximada de 220 TB, equivalente a más de 55 millones de fotografías digitales o aproximadamente 44.000 horas de video 4K. Utilizado para alojamiento de aplicaciones, bases de datos y servicios de red para Netflix.")("C06,TUC,001"),SC("NTFLXVID.MUS.POD4.AU30.29","Servidor de propósito general para ejecución de aplicaciones y servicios de red."),SC("NTFLXVID.MUS.POD4.AU30.28"),SC("NTFLXVID.MUS.POD4.AU30.27")],
-AU29:[SV("rtr","ROUTER CORE","CISCO","NCS-5508-SYS","PERSONAL","Enrutamiento y transporte de tráfico IP/MPLS de alta capacidad en redes troncales entre Datacenter BUS - MUS, para uso de la red CDN (Meta, Google, Netflix, Flow y core móvil).")("ARTTMUS-CGW001"),SV("hp","STORAGE ARRAY","HP","PROLIANT DL380 GEN 10","FLOW",FBC+" Prevé servicios para Flow.")("10145-15-363"),SV("r66","STORAGE ARRAY","DELL","POWEREDGE R6615","FLOW","Servidor de monitoreo y análisis de tráfico de red (Flow), con capacidad de almacenar hasta 38 millones de fotografías digitales o aproximadamente 30.000 horas de video 4K, utilizado para el resguardo y procesamiento de grandes volúmenes de información operativa.")("MUS-EDGE-MIX03")]
+AU29:[SV("rtr","ROUTER CORE","CISCO","NCS-5508-SYS","PERSONAL","Enrutamiento y transporte de tráfico IP/MPLS de alta capacidad en redes troncales entre Datacenter BUA - MUS, para uso de la red CDN (Meta, Google, Netflix, Flow y core móvil).")("ARTTMUS-CGW001"),SV("hp","STORAGE ARRAY","HP","PROLIANT DL380 GEN 10","FLOW",FBC+" Prevé servicios para Flow.")("10145-15-363"),SV("r66","STORAGE ARRAY","DELL","POWEREDGE R6615","FLOW","Servidor de monitoreo y análisis de tráfico de red (Flow), con capacidad de almacenar hasta 38 millones de fotografías digitales o aproximadamente 30.000 horas de video 4K, utilizado para el resguardo y procesamiento de grandes volúmenes de información operativa.")("MUS-EDGE-MIX03")]
 });
 const keys=Object.keys(D);
 const logo=()=>{const i=document.createElement("img");i.className="logo";i.src=LOGO;i.alt="Personal";return i};
@@ -248,12 +251,11 @@ function face(d){
     for(let i=0;i<9;i++)b+=sv(227+i*17.2,16.2);
     b+=`<rect class="bz2" x="10" y="358" width="380" height="10" rx="2"/>`;
   }else if(k==="sw"){H=56;
-    b+=R(12,4,376,48,"sl")+T(18,15,M,"tk")+T(18,24,O,"tm");
-    b+=P(18,31,10,8)+P(30,31,10,8)+P(42,31,10,8)+P(18,42,10,6)+P(30,42,10,6);
-    for(let c=0;c<24;c++){b+=P(80+c*8.6,8,7.6,9)+P(80+c*8.6,20,7.6,9)}
-    for(let c=0;c<3;c++){b+=P(294+c*29.5,8,26,10)+P(294+c*29.5,20,26,10)}
-    b+=T(80,42,"48 x 10GE SFP+","tm")+T(294,42,"6 x 100GE QSFP28","tm");
-    b+=`<circle class="${ok?"lg":"off"}" cx="378" cy="48" r="2.6"/>`;
+    b+=R(12,4,376,48,"swp");
+    for(let g=0;g<3;g++)for(let c=0;c<8;c++){const x=18+g*88+c*10.4;b+=P(x,9,9,12)+P(x,24,9,12)}
+    for(let c=0;c<3;c++)b+=P(292+c*29,9,25,13)+P(292+c*29,24,25,13);
+    for(let i=0;i<8;i++)b+=LED(20+i*7,46,1.6);
+    b+=T(90,49,"48 x 10GE","tm")+T(292,49,"6 x 100GE QSFP28","tm");
   }else if(k==="osn"){H=474;
     b+=R(22,10,128,70)+R(250,10,128,70);
     for(let i=0;i<8;i++)b+=`<path class="vt2" d="M30 ${20+i*7.5}H142M258 ${20+i*7.5}H370"/>`;
@@ -284,13 +286,22 @@ function face(d){
     b+=`<rect class="bz3" x="14" y="396" width="372" height="46" rx="3"/>`;
     for(let r=0;r<3;r++)for(let c=0;c<16;c++)b+=`<circle class="vh" cx="${34+c*8.2}" cy="${406+r*10}" r="2.1"/>`;
     b+=T(232,424,M,"bt","middle")+`<circle class="fan" cx="300" cy="419" r="6"/><circle class="${ok?"lg":"off"}" cx="352" cy="419" r="2.8"/>`;
-  }else if(k==="core"){H=304;
-    b+=T(18,19,M)+T(70,19,"CloudEngine "+O,"sm");
-    for(let m=0;m<2;m++){const x=14+m*190;b+=R(x,26,182,30)+HL(x+3,29,3,24)+P(x+12,31,4,4)+P(x+20,31,4,4)+P(x+34,31,16,8)+P(x+54,31,16,8)+P(x+74,31,10,8)+P(x+34,43,60,7)}
-    for(let i=0;i<4;i++){const y=62+i*52;
-      b+=R(14,y,372,48)+HL(16,y+4,4,40)+HL(380,y+4,4,40)+P(24,y+8,3,3)+P(24,y+14,3,3);
-      for(let r=0;r<2;r++)for(let c=0;c<16;c++)b+=P(31+c*21.2,y+7+r*20,17.4,15)}
-    b+=R(14,272,372,24,"ft")+fans(284,8,6);
+  }else if(k==="core"){H=300;
+    b+=R(14,6,372,80,"bzk")+T(22,18,"CloudEngine 16800","sm")+T(380,18,M,"bt","end");
+    for(let g=0;g<2;g++)for(let i=0;i<3;i++){const x=(g?278:22)+i*34;b+=R(x,24,30,56,"hpb")+F(x+15,48,10)+`<rect class="oc" x="${x+3}" y="72" width="24" height="4"/>`}
+    b+=R(140,28,120,40,"bl2")+T(200,52,"CE16804","sm","middle");for(let i=0;i<6;i++)b+=LED(152+i*19,34,1.8);
+    for(let m=0;m<2;m++){const x=14+m*188;b+=R(x,90,184,32,"sl mc");for(let r=0;r<2;r++)for(let c=0;c<6;c++)b+=P(x+8+c*17,95+r*12,14,9);b+=LED(x+150,101,2)+LED(x+160,101,2)+P(x+148,108,26,8)}
+    for(let i=0;i<2;i++){const y=128+i*62;b+=R(14,y,372,58,"sl mc")+HL(14,y,372,4)+HL(14,y+54,372,4)+LED(22,y+10,1.8)+LED(30,y+10,1.8);
+      for(let g=0;g<3;g++)for(let r=0;r<2;r++)for(let c=0;c<12;c++)b+=P(24+g*122+c*9.4,y+16+r*18,8,12)}
+    b+=R(14,254,372,38,"sl mc")+HL(14,254,372,4)+HL(14,288,372,4)+`<rect class="yl" x="150" y="272" width="100" height="6"/>`;
+  }else if(k==="ne8"){H=210;
+    b+=R(14,6,372,16,"bzk")+T(22,18,M+" NE8000","sm");
+    const lc=(x,y)=>{let t=R(x,y,150,34,"sl mc")+HL(x,y,150,4);for(let i=0;i<4;i++)t+=P(x+10+i*34,y+10,28,14);return t+LED(x+10,y+29,1.7)+LED(x+20,y+29,1.7)};
+    for(const y of [28,66,158]){b+=lc(14,y)+lc(168,y)}
+    for(let i=0;i<2;i++){const y=104+i*26;b+=R(14,y,304,22,"sl mc")+R(18,y+3,56,16,"sl")+P(82,y+4,16,9)+P(102,y+4,16,9);for(let c=0;c<8;c++)b+=P(130+c*22,y+4,18,11);b+=LED(298,y+11,1.8)+LED(308,y+11,1.8)}
+    b+=R(324,28,62,164,"sl mc")+R(348,38,10,144,"cr")+`<rect class="yl" x="330" y="34" width="14" height="8"/><rect class="yl" x="330" y="176" width="14" height="8"/>`;
+    for(let i=0;i<4;i++)b+=LED(336,60+i*12,1.8);
+    b+=R(14,198,372,8,"bzk");
   }else if(k==="hp"){H=100;
     b+=R(5,58,13,32,"hpb")+`<rect class="hpe" x="383" y="64" width="11" height="5"/>`;
     for(let i=0;i<2;i++){const x=22+i*70;b+=R(x,8,66,26,"hpb")+R(x+3,11,26,20,"bl2")+T(x+5,24,"NVMe","sm")+LED(x+40,21,3.2)+`<rect class="lat" x="${x+48}" y="12" width="14" height="18" rx="2"/>`}
@@ -357,14 +368,13 @@ function face(d){
     b+=R(12,350,376,26,"ub")+`<rect class="sl" x="300" y="357" width="52" height="12" rx="1.5"/><rect class="yl" x="304" y="360" width="10" height="6"/>`+`<rect class="eb" x="26" y="356" width="130" height="14" rx="2"/>`;
   }
   const LD=(x,y)=>`<rect class="pt" style="--i:0" x="${x-1.5}" y="${y-1.5}" width="3" height="3" rx="1"/>`;
-  if(k==="sw")for(let c=0;c<3;c++)b+=LD(60+c*7,35)+LD(60+c*7,45);
   if(k==="pss"){for(let c=0;c<3;c++)b+=LD(352+c*10,33);for(let c=0;c<6;c++)b+=LD(40+c*8,68)}
   if(k==="nfv")b=b.replace(/<rect class="yl" x="([\d.]+)" y="([\d.]+)" width="7" height="7"\/>/g,(m,x,y)=>LD(+x+3.5,+y+3.5));
   let n3=0;b=b.replace(/<rect class="pt" style="--i:\d+" x="([\d.]+)" y="([\d.]+)" width="3" height="3" rx="1"\/>/g,(m,x,y)=>{n3++;return ok?`<circle class="ld${n3%3===0?" am":""}" style="--d:${((n3*37)%100)/50}" cx="${+x+1.5}" cy="${+y+1.5}" r="1.7"/>`:`<circle class="off" cx="${+x+1.5}" cy="${+y+1.5}" r="1.7"/>`});
   const st=`<circle class="${ok?"lg":"off"}" cx="376" cy="14" r="3"/>`;
   const ear=y=>`<circle class="sc" cx="4.5" cy="${y}" r="1.8"/><circle class="sc" cx="395.5" cy="${y}" r="1.8"/>`;
   let sc=ear(9)+ear(H-9);if(H>150)sc+=ear(Math.round(H/2));
-  return `<svg viewBox="0 0 400 ${H}" role="img" aria-label="Frente aproximado del equipo ${M} ${O}"><rect class="ch${/^(nfv|osn|hp|r730|r66|smc|vik)$/.test(k)?" chb":k==="ups"?" cbu":k==="eq"?" ces":""}" x="1" y="1" width="398" height="${H-2}" rx="7"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="1" y="1" width="9" height="${H-2}" rx="4"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="390" y="1" width="9" height="${H-2}" rx="4"/>${sc}${/^(sw|olt|nfv|osn|ups|hp|r730|r66|smc|vik|eq|rtr)$/.test(k)?"":st}${b}</svg>`;
+  return `<svg viewBox="0 0 400 ${H}" role="img" aria-label="Frente aproximado del equipo ${M} ${O}"><rect class="ch${/^(nfv|osn|hp|r730|r66|smc|vik|core|ne8)$/.test(k)?" chb":k==="ups"?" cbu":k==="eq"?" ces":""}" x="1" y="1" width="398" height="${H-2}" rx="7"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="1" y="1" width="9" height="${H-2}" rx="4"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="390" y="1" width="9" height="${H-2}" rx="4"/>${sc}${/^(sw|olt|nfv|osn|ups|hp|r730|r66|smc|vik|eq|rtr|core|ne8)$/.test(k)?"":st}${b}</svg>`;
 }
 function card(d,i,n){
   const e=el("article","eq"),b=el("button","fb"),hd=el("div","fh"),fc=el("div","face");
