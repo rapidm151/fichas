@@ -125,7 +125,7 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .pb{padding:18px 18px 20px}
 .pb .eqrow{margin-top:14px}
 .rack .eq:last-child{margin-bottom:0}
-@media (prefers-reduced-motion:reduce){.lg,.ld,.open .pt{animation:none}.pn,.chev,.eq{transition:none}}
+@media (prefers-reduced-motion:reduce){.open .pt{animation:none}.pn,.chev,.eq{transition:none}}
 .lb{display:block;font-style:normal;font-size:13px;color:var(--mute);font-weight:500}
 .eqrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:16px}
 .spec{display:grid;gap:10px}
@@ -384,7 +384,7 @@ function card(d,i,n){
   pi.appendChild(pb);pn.appendChild(pi);e.append(b,pn);return e;
 }
 function render(){
-  const id=decodeURIComponent(location.hash.slice(1)).toUpperCase(),v=document.getElementById("view");
+  const q=new URLSearchParams(location.search).get("r"),id=(q||decodeURIComponent(location.hash.slice(1))).trim().toUpperCase(),v=document.getElementById("view");
   v.replaceChildren();
   const h=el("section","hero");
   if(!D[id]){
