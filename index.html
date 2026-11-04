@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Datacenter MUS, racks</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-:root{--bg:#eef9fd;--sf:#fff;--ink:#0b1b4d;--mute:#5d6b99;--line:#d3eaf4;--tile:#eef9fd;--blue:#00b7eb;--bt:#006f9c;--cy:#a8ecff;--chip:#dbf4fd;--chipink:#00638c;--okbg:#dff6ea;--okink:#0b7a4b;--sh:0 8px 28px rgba(0,120,170,.14);
+:root{--mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;--bg:#eef9fd;--sf:#fff;--ink:#0b1b4d;--mute:#5d6b99;--line:#d3eaf4;--tile:#eef9fd;--blue:#00b7eb;--bt:#006f9c;--cy:#a8ecff;--chip:#dbf4fd;--chipink:#00638c;--okbg:#dff6ea;--okink:#0b7a4b;--sh:0 8px 28px rgba(0,120,170,.14);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06142a;--sf:#0d2140;--ink:#fff;--mute:#9fb8d6;--line:#1b3a62;--tile:#14305a;--bt:#6fd8ff;--chip:#17406c;--chipink:#9fe3ff;--okbg:#0f3b2c;--okink:#5be0a5;--sh:none}}
 :root[data-theme="dark"]{--bg:#06142a;--sf:#0d2140;--ink:#fff;--mute:#9fb8d6;--line:#1b3a62;--tile:#14305a;--bt:#6fd8ff;--chip:#17406c;--chipink:#9fe3ff;--okbg:#0f3b2c;--okink:#5be0a5;--sh:none}
@@ -42,7 +42,7 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .idx button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--sf);color:var(--ink);border:1.5px solid var(--line);border-radius:16px;padding:10px 14px;font:inherit;cursor:pointer}
 .idx button:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .idx .num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#04283a;display:grid;place-items:center;font-weight:800}
-.idx strong{display:block;font-weight:800;overflow-wrap:anywhere}
+.idx strong{display:block;font-family:var(--mono);font-weight:700;font-size:14.5px;letter-spacing:-.01em;overflow-wrap:anywhere}
 .idx small{display:block;color:var(--mute);font-size:13px}
 .rack{position:relative;padding:0 22px}
 .rack::before,.rack::after{content:"";position:absolute;top:0;bottom:0;width:12px;border-radius:6px;background:radial-gradient(circle,var(--bg) 2.6px,transparent 3px) center 0/12px 26px repeat-y,var(--blue)}
@@ -55,7 +55,7 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .fb{display:block;width:100%;text-align:left;background:#0b1220;color:#e8efff;border:0;padding:14px 14px 12px;cursor:pointer;font:inherit}
 .fb:focus-visible{outline:3px solid var(--cy);outline-offset:-3px}
 .fh{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px}
-.fc{font-size:19px;font-weight:800;overflow-wrap:anywhere;min-width:0}
+.fc{font-family:var(--mono);font-size:clamp(14px,4.3vw,17px);font-weight:700;letter-spacing:-.015em;overflow-wrap:anywhere;min-width:0}
 .chev{margin-left:auto;flex:none;width:10px;height:10px;border-right:2.5px solid #9fb3e8;border-bottom:2.5px solid #9fb3e8;transform:rotate(45deg);transition:transform .3s}
 .open .chev{transform:rotate(-135deg)}
 .face svg{display:block;width:100%;height:auto;margin-top:12px}
@@ -79,6 +79,9 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .mbk{fill:#4a4e57}
 .swp{fill:#9b979b;stroke:#6e6a70;stroke-width:.8}
 .oc{fill:#d9531e}
+.swa{fill:#b9bcc4;stroke:#7d818c;stroke-width:.8}
+.mesh2{stroke:#3a3b44;stroke-width:1.4;stroke-dasharray:1.4 1.6;fill:none}
+.glw{fill:#6f8ff0;opacity:.9}
 .bl{fill:#1c1c21;stroke:#34343b;stroke-width:.6}
 .bd{fill:#26262c}
 .dv{fill:#a5a7b0}
@@ -136,11 +139,11 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .pb .eqrow{margin-top:14px}
 .rack .eq:last-child{margin-bottom:0}
 @media (prefers-reduced-motion:reduce){.open .pt{animation:none}.pn,.chev,.eq{transition:none}}
-.lb{display:block;font-style:normal;font-size:13px;color:var(--mute);font-weight:500}
+.lb{display:block;font-style:normal;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-weight:600}
 .eqrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:16px}
 .spec{display:grid;gap:10px}
 .sp{background:var(--chip);border-radius:16px;padding:10px 14px}
-.sp em{display:block;font-style:normal;font-size:13px;color:var(--chipink);font-weight:600}
+.sp em{display:block;font-style:normal;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--chipink);font-weight:600}
 .sp strong{display:block;font-size:clamp(14px,4.5vw,18px);line-height:1.25;font-weight:700;overflow-wrap:break-word}
 .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .row .m{background:var(--chip);color:var(--chipink);padding:4px 12px;border-radius:999px;font-size:14px;font-weight:600}
@@ -151,11 +154,11 @@ a:focus-visible{outline:3px solid var(--bt);outline-offset:2px}
 .tag{display:inline-block;margin-top:12px;background:var(--cy);color:#04283a;padding:4px 14px;border-radius:999px;font-size:14px;font-weight:600}
 .g{display:grid;gap:10px;margin-top:16px}
 .t{display:flex;align-items:center;gap:12px;background:var(--tile);border-radius:18px;padding:12px 14px}
-.t svg{flex:none;width:24px;height:24px;color:var(--bt)}
-.t em{display:block;font-style:normal;font-size:13px;color:var(--mute)}
-.t strong{display:block;white-space:nowrap;font-size:21px;line-height:1.15;font-weight:800}
+.t svg{flex:none;width:22px;height:22px;color:var(--bt)}
+.t em{display:block;font-style:normal;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.t strong{display:block;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:clamp(16px,4.9vw,21px);line-height:1.15;font-weight:800}
 .fn{margin-top:16px;padding-left:14px;border-left:4px solid var(--blue)}
-.fn em{display:block;font-style:normal;font-size:13px;color:var(--mute)}
+.fn em{display:block;font-style:normal;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);font-weight:600}
 .fn p{margin:2px 0 0}
 .msg{margin:6px 4px;font-size:17px;color:var(--mute)}
 .home{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -185,11 +188,11 @@ AJ13:[S2("ARTTMUS-ETM006"),S2("ARTTMUS-ETM005"),S2("ARTTMUS-ETS004"),S2("ARTTMUS
 AJ15:[S("ARTTMUS-SED002"),S("ARTTMUS-SED001"),S("ARTTMUS-STD002"),S("ARTTMUS-STD001")],
 AP14:[W("ARTTMUS-WI1001"),U("ARTTMUS-WI1000","OPERATIVO","48 VDC")],
 AP15:[W("ARTTMUS-WI1200")],
-AP16:[W("ARTTMUS-WI1000"),U("ARTTMUS-WI1002")],
+AP16:[W("ARTTMUS-WI1100"),U("ARTTMUS-WI1002")],
 AP17:[W("ARTTMUS-WI0800")],
 AP20:[O("MUS901","7552","Equipo de acceso de clientes en zona Alderetes"),O("MUS801","5454","Equipo de acceso de clientes en zona ex Central Acceso Norte")],
 AP21:[O("ARTTMUS0OLI011","4361","Equipo de acceso de clientes en zona Muñecas"),O("ARTTMUS0OLI010","3077","Acceso")],
-AP23:[{k:"pss",t:"TRANSPORTE DWDM/OTN",m:"NOKIA",o:"1830-PSS-16II",e:"ARTTMUS-WL0101",s:"OPERATIVO",f:"El Nokia 1830 PSS-16 (Photonic Service Switch) es un equipo de transporte óptico DWDM/OTN, utilizado para mover grandes cantidades de tráfico sobre fibra óptica entre centrales, nodos regionales, data centers y redes móviles. Afectado a la ruta A38.",n:"48 VDC"}],
+AP23:[{k:"pss",t:"TRANSPORTE DWDM/OTN",m:"NOKIA",o:"1830-PSS-16II",e:"ARTTMUS-WL0101",s:"OPERATIVO",f:"El Nokia 1830 PSS-16 (Photonic Service Switch) es un equipo de transporte óptico DWDM/OTN, utilizado para mover grandes cantidades de tráfico sobre fibra óptica entre centrales, nodos regionales, data centers y redes móviles. Este equipo está en la ruta A38, que va desde Muñecas hasta Trancas y cierra el anillo DWDM Light.",n:"48 VDC"}],
 AP27:[O("ARTTMUS0OLI013","1121","Equipo de acceso para nuevo despliegue de clientes en zona ex Central 9 de Julio"),O("ARTTMUS0OLI012",undefined,"Equipo de acceso de clientes en zona ex Central 9 de Julio")]
 };
 const ICO={
@@ -205,7 +208,7 @@ const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATQAAABICAYAAAB4FgmRAA
 ICO.osn=ICO.dw;ICO.pss=ICO.dw;ICO.ups=ICO.dw;
 const SVG0='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
 ICO.srv=SVG0+'<rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M12 6.5h5M12 17.5h5"/></svg>';
-ICO.hp=ICO.r730=ICO.r66=ICO.smc=ICO.vik=ICO.eq=ICO.srv;ICO.rtr=ICO.core;ICO.ne8=ICO.core;
+ICO.hp=ICO.r730=ICO.r66=ICO.smc=ICO.vik=ICO.eq=ICO.srv;ICO.rtr=ICO.core;ICO.ne8=ICO.core;ICO.stg=ICO.srv;
 
 const FB="Servidor HP ProLiant destinado a la ejecución de servicios y aplicaciones de la plataforma Meta (Facebook).";
 const FBC=FB+" Capacidad estimada de almacenamiento: hasta 460 TB, equivalente a más de 115 millones de fotografías o aproximadamente 92.000 horas de video 4K, permitiendo el resguardo y disponibilidad de grandes volúmenes de información crítica.";
@@ -223,6 +226,17 @@ AU32:[SV("eq","STORAGE ARRAY","DELL","EQUSS-D2860","GOOGLE",GST)("telecomargenti
 AU31:[1,2,3,4,5,6,7,8].map(i=>R7("TELECOMARGENTINA.TUC40"+i)),
 AU30:[SC("C008.TUC.001.TELECOM.ARGENTNA.ISP.NFLXVIDEO.NET"),SC("C002.TUC.001.TELECOM.ARGENTNA.ISP.NFLXVIDEO.NET"),SV("vik","STORAGE ARRAY","VIKING","BSP-27","NETFLIX","Servidor de almacenamiento y procesamiento de datos con capacidad aproximada de 220 TB, equivalente a más de 55 millones de fotografías digitales o aproximadamente 44.000 horas de video 4K. Utilizado para alojamiento de aplicaciones, bases de datos y servicios de red para Netflix.")("C06,TUC,001"),SC("NTFLXVID.MUS.POD4.AU30.29","Servidor de propósito general para ejecución de aplicaciones y servicios de red."),SC("NTFLXVID.MUS.POD4.AU30.28"),SC("NTFLXVID.MUS.POD4.AU30.27")],
 AU29:[SV("rtr","ROUTER CORE","CISCO","NCS-5508-SYS","PERSONAL","Enrutamiento y transporte de tráfico IP/MPLS de alta capacidad en redes troncales entre Datacenter BUA - MUS, para uso de la red CDN (Meta, Google, Netflix, Flow y core móvil).")("ARTTMUS-CGW001"),SV("hp","STORAGE ARRAY","HP","PROLIANT DL380 GEN 10","FLOW",FBC+" Prevé servicios para Flow.")("10145-15-363"),SV("r66","STORAGE ARRAY","DELL","POWEREDGE R6615","FLOW","Servidor de monitoreo y análisis de tráfico de red (Flow), con capacidad de almacenar hasta 38 millones de fotografías digitales o aproximadamente 30.000 horas de video 4K, utilizado para el resguardo y procesamiento de grandes volúmenes de información operativa.")("MUS-EDGE-MIX03")]
+});
+
+const SW63="Switch ToR de agregación y transporte L2/L3 (25G/100G) para Data Centers Edge y Core 5G; conmuta tráfico de alta velocidad/baja latencia para nodos UPF, CU/DU y Network Slicing.";
+const CE16F="Switch modular de Core/Spine L2/L3 para centros de datos y redes 5G. Chasis de 4 slots de alta densidad para enlaces de 100G/400G; conmutación masiva de tráfico, baja latencia (AI-Powered) y agregación centralizada.";
+const OCF="Sistema de almacenamiento unificado híbrido (SAN/NAS) de gama media para centros de datos. Provee almacenamiento de alta disponibilidad y bajo tiempo de respuesta para virtualización, bases de datos y registros del Core 5G. Soporta hasta 1.200 discos por sistema y escalabilidad masiva de hasta 16 controladores (4 TB de caché); capacidad física de varios Petabytes (PB) escalables, ampliables mediante deduplicación y compresión por software.";
+const EN=(k,t,o,f)=>e=>({k,t,m:"HUAWEI",o,e,s:"OPERATIVO",c:"PERSONAL",f,n:"48 VDC"});
+const E81=EN("sw","INFRAESTRUCTURA NFV","CE6881-48S6CQ",SWF),E63=EN("sw","INFRAESTRUCTURA NFV","CE6863-48S6CQ",SW63),E16=EN("core","INFRAESTRUCTURA NFV","CE16804",CE16F),EOC=EN("stg","ALMACENAMIENTO SAN/NAS","OCEANSTOR 5500 V5",OCF);
+Object.assign(D,{
+AE14:[E81("ARTTMUS-ETM004"),E81("ARTTMUS-ETM003"),E63("ARTTMUS-ETS002"),E63("ARTTMUS-ETS001")],
+AE15:[E16("ARTTMUS-EED001")],
+AE16:[E81("ARTTMUS-ETM002"),E81("ARTTMUS-ETM001"),EOC("ARTTMUS-EST001"),EOC("ARTTMUS-EST002")]
 });
 const keys=Object.keys(D);
 const logo=()=>{const i=document.createElement("img");i.className="logo";i.src=LOGO;i.alt="Personal";return i};
@@ -259,11 +273,11 @@ function face(d){
     for(let i=0;i<9;i++)b+=sv(227+i*17.2,16.2);
     b+=`<rect class="bz2" x="10" y="358" width="380" height="10" rx="2"/>`;
   }else if(k==="sw"){H=56;
-    b+=R(12,4,376,48,"swp");
-    for(let g=0;g<3;g++)for(let c=0;c<8;c++){const x=18+g*88+c*10.4;b+=P(x,9,9,12)+P(x,24,9,12)}
-    for(let c=0;c<3;c++)b+=P(292+c*29,9,25,13)+P(292+c*29,24,25,13);
-    for(let i=0;i<8;i++)b+=LED(20+i*7,46,1.6);
-    b+=T(90,49,"48 x 10GE","tm")+T(292,49,"6 x 100GE QSFP28","tm");
+    b+=R(12,4,376,48,"swa");
+    for(let g=0;g<3;g++)for(let c=0;c<8;c++){const x=18+g*86+c*10.2;b+=P(x,9,8.6,10)+P(x,22,8.6,10)}
+    for(let c=0;c<3;c++)b+=P(296+c*30,9,26,11)+P(296+c*30,22,26,11);
+    for(let i=0;i<6;i++)b+=LED(20+i*7,42,1.6);
+    b+=T(70,45,/6863/.test(O)?"48 x 25GE SFP28":"48 x 10GE SFP+","tm")+T(296,45,"6 x 100GE QSFP28","tm");
   }else if(k==="osn"){H=474;
     b+=R(22,10,128,70)+R(250,10,128,70);
     for(let i=0;i<8;i++)b+=`<path class="vt2" d="M30 ${20+i*7.5}H142M258 ${20+i*7.5}H370"/>`;
@@ -310,6 +324,12 @@ function face(d){
     b+=R(324,28,62,164,"sl mc")+R(348,38,10,144,"cr")+`<rect class="yl" x="330" y="34" width="14" height="8"/><rect class="yl" x="330" y="176" width="14" height="8"/>`;
     for(let i=0;i<4;i++)b+=LED(336,60+i*12,1.8);
     b+=R(14,198,372,8,"bzk");
+  }else if(k==="stg"){H=100;
+    b+=R(12,10,20,80,"hpb")+`<circle class="bl2" cx="22" cy="26" r="6"/>`+LED(22,50,2)+LED(22,60,2)+`<rect class="bl2" x="16" y="70" width="12" height="14" rx="2"/>`;
+    b+=R(36,8,326,84,"bzk");
+    for(let y=12;y<90;y+=3.2)b+=`<path class="mesh2" d="M38 ${y.toFixed(1)}H360"/>`;
+    b+=`<rect class="glw" x="44" y="58" width="310" height="2" rx="1"/>`+T(352,26,M,"bt","end")+T(46,84,"OceanStor "+O.replace(/^OCEANSTOR?E? /,""),"sm");
+    b+=R(366,10,22,80,"hpb");for(let i=0;i<4;i++)b+=LED(377,22+i*12,2);b+=`<rect class="blu" x="370" y="72" width="14" height="10" rx="2"/>`;
   }else if(k==="hp"){H=100;
     b+=R(5,58,13,32,"hpb")+`<rect class="hpe" x="383" y="64" width="11" height="5"/>`;
     for(let i=0;i<2;i++){const x=22+i*70;b+=R(x,8,66,26,"hpb")+R(x+3,11,26,20,"bl2")+T(x+5,24,"NVMe","sm")+LED(x+40,21,3.2)+`<rect class="lat" x="${x+48}" y="12" width="14" height="18" rx="2"/>`}
@@ -382,7 +402,7 @@ function face(d){
   const st=`<circle class="${ok?"lg":"off"}" cx="376" cy="14" r="3"/>`;
   const ear=y=>`<circle class="sc" cx="4.5" cy="${y}" r="1.8"/><circle class="sc" cx="395.5" cy="${y}" r="1.8"/>`;
   let sc=ear(9)+ear(H-9);if(H>150)sc+=ear(Math.round(H/2));
-  return `<svg viewBox="0 0 400 ${H}" role="img" aria-label="Frente aproximado del equipo ${M} ${O}"><rect class="ch${/^(nfv|osn|hp|r730|r66|smc|vik|core|ne8)$/.test(k)?" chb":k==="ups"?" cbu":k==="eq"?" ces":""}" x="1" y="1" width="398" height="${H-2}" rx="7"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="1" y="1" width="9" height="${H-2}" rx="4"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="390" y="1" width="9" height="${H-2}" rx="4"/>${sc}${/^(sw|olt|nfv|osn|ups|hp|r730|r66|smc|vik|eq|rtr|core|ne8)$/.test(k)?"":st}${b}</svg>`;
+  return `<svg viewBox="0 0 400 ${H}" role="img" aria-label="Frente aproximado del equipo ${M} ${O}"><rect class="ch${/^(nfv|osn|hp|r730|r66|smc|vik|core|ne8|stg)$/.test(k)?" chb":k==="ups"?" cbu":k==="eq"?" ces":""}" x="1" y="1" width="398" height="${H-2}" rx="7"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="1" y="1" width="9" height="${H-2}" rx="4"/><rect class="ear${k==="pss"||k==="eq"?" cr":k==="ups"?" eb":k==="vik"?" blu":""}" x="390" y="1" width="9" height="${H-2}" rx="4"/>${sc}${/^(sw|olt|nfv|osn|ups|hp|r730|r66|smc|vik|eq|rtr|core|ne8|stg)$/.test(k)?"":st}${b}</svg>`;
 }
 function card(d,i,n){
   const e=el("article","eq"),b=el("button","fb"),hd=el("div","fh"),fc=el("div","face");
@@ -397,7 +417,7 @@ function card(d,i,n){
   if(sp.length){const g=el("div","spec");g.style.gridTemplateColumns=sp.length>1&&![d.m,d.o].some(v=>v&&String(v).length>=8)?"minmax(0,1fr) minmax(0,1fr)":"minmax(0,1fr)";sp.forEach(x=>g.appendChild(x));pb.appendChild(g)}
   if(d.a)pb.appendChild(el("span","tag",d.a));
   const tiles=[];if(d.c)tiles.push(tile("users","Clientes",d.c));if(d.n)tiles.push(tile("bolt","Energía",d.n));
-  if(tiles.length){const g=el("div","g");g.style.gridTemplateColumns=tiles.length>1&&![d.c,d.n].some(v=>v&&String(v).length>11)?"minmax(0,1fr) minmax(0,1fr)":"minmax(0,1fr)";tiles.forEach(t=>g.appendChild(t));pb.appendChild(g)}
+  if(tiles.length){const g=el("div","g");g.style.gridTemplateColumns=tiles.length>1&&!(d.c&&String(d.c).length>5)&&!(d.n&&String(d.n).length>8)?"minmax(0,1fr) minmax(0,1fr)":"minmax(0,1fr)";tiles.forEach(t=>g.appendChild(t));pb.appendChild(g)}
   if(d.f){const f=el("div","fn");f.append(el("em","","Función"),el("p","",d.f));pb.appendChild(f)}
   [...pb.children].forEach((c,i)=>c.style.setProperty("--k",i));pi.appendChild(pb);pn.appendChild(pi);e.append(b,pn);return e;
 }
